@@ -13,6 +13,8 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Endereco {
 
+    // Mapeando o que foi pedido
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,7 +24,7 @@ public class Endereco {
     private String rua;
 
     @NotBlank(message = "Número é obrigatório")
-    private String numero;
+    private int numero;
 
     @NotBlank(message = "Bairro é obrigatório")
     @Size(min = 3, max = 100, message = "O bairro deve ter entre 3 e 100 caracteres")
@@ -42,7 +44,10 @@ public class Endereco {
 
     @NotBlank(message = "CEP é obrigatório")
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve seguir o formato XXXXX-XXX")
-    private String cep;
+    private String cep; // preferi usar string no cep para ser mais fácil de trabalhar
+
+
+    // Adicionando os Getters e Setters
 
     public int getId() {
         return id;
@@ -60,11 +65,11 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
