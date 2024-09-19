@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -37,13 +38,13 @@ public class Cliente {
     @NotBlank(message = "CPF é obrigatório")
     @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "CPF deve seguir o formato XXX.XXX.XXX-XX")
     @Column(unique = true)
-    private int cpf;
+    private String cpf;
 
     @Past(message = "Data de nascimento deve ser válida")
     private LocalDate dataNascimento;
 
     @Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}", message = "O telefone deve seguir o padrão (XX) XXXXX-XXXX")
-    private int telefone;
+    private String telefone;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos;
@@ -77,11 +78,11 @@ public class Cliente {
         this.email = email;
     }
     
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
     
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     
@@ -93,11 +94,11 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
     
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
     
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     

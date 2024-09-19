@@ -24,7 +24,7 @@ public class Endereco {
     private String rua;
 
     @NotBlank(message = "Número é obrigatório")
-    private int numero;
+    private String numero;
 
     @NotBlank(message = "Bairro é obrigatório")
     @Size(min = 3, max = 100, message = "O bairro deve ter entre 3 e 100 caracteres")
@@ -65,11 +65,11 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
