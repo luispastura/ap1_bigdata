@@ -12,22 +12,27 @@ import java.util.Optional;
 @Service
 public class EnderecoService {
 
+    private final EnderecoRepository enderecoRepository;
+
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    public EnderecoService(EnderecoRepository enderecoRepository) {
+        this.enderecoRepository = enderecoRepository;
+    }
 
     public List<Endereco> listarTodos() {
-        return enderecoRepository.findAll();
+        return this.enderecoRepository.findAll();
     }
 
     public Optional<Endereco> buscarPorId(int id) {
-        return enderecoRepository.findById(id);
+        return this.enderecoRepository.findById(id);
     }
 
     public Endereco salvar(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+        return this.enderecoRepository.save(endereco);
     }
 
     public void deletarPorId(int id) {
-        enderecoRepository.deleteById(id);
+        this.enderecoRepository.deleteById(id);
     }
 }
+
