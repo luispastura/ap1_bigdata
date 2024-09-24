@@ -13,8 +13,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -52,6 +50,13 @@ public class Cliente {
     @AssertTrue(message = "O cliente deve ter pelo menos 18 anos")
     public boolean ehAdulto() {
         return Period.between(this.dataNascimento, LocalDate.now()).getYears() >= 18;
+    }
+
+    public int getIdade() {
+        if (this.dataNascimento == null) {
+            return 0; // Ou outro valor padrão caso data de nascimento não esteja definida
+        }
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 
     public int getId() {

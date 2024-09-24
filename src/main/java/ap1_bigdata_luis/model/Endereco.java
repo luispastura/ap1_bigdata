@@ -13,8 +13,6 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Endereco {
 
-    // Mapeando o que foi pedido
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -44,10 +42,7 @@ public class Endereco {
 
     @NotBlank(message = "CEP é obrigatório")
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "CEP deve seguir o formato XXXXX-XXX")
-    private String cep; // preferi usar string no cep para ser mais fácil de trabalhar
-
-
-    // Adicionando os Getters e Setters
+    private String cep;
 
     public int getId() {
         return id;
