@@ -13,24 +13,30 @@ import java.util.List;
 @RequestMapping("/enderecos")
 public class EnderecoController {
 
+    private final EnderecoService enderecoService;
+
     @Autowired
-    private EnderecoService enderecoService;
+    public EnderecoController(EnderecoService enderecoService) {
+        this.enderecoService = enderecoService;
+    }
 
     @GetMapping
-    public List<Endereco> listarTodos() {
-        return enderecoService.listarTodos();
+    public ResponseEntity<List<Endereco>> listarTodos() {
+        List<Endereco> enderecos = enderecoService.listarTodos();
+        return ResponseEntity.ok(enderecos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Endereco> buscarPorId(@PathVariable int id) {
         return enderecoService.buscarPorId(id)
-            .map(endereco -> ResponseEntity.ok(endereco))
-            .orElse(ResponseEntity.notFound().build());
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Endereco salvar(@RequestBody Endereco endereco) {
-        return enderecoService.salvar(endereco);
+    public ResponseEntity<Endereco> salvar(@RequestBody Endereco endereco) {
+        Endereco enderecoSalvo = enderecoService.salvar(endereco);
+        return ResponseEntity.ok(enderecoSalvo);
     }
 
     @DeleteMapping("/{id}")
@@ -39,3 +45,4 @@ public class EnderecoController {
         return ResponseEntity.noContent().build();
     }
 }
+
