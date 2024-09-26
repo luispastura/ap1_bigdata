@@ -25,21 +25,13 @@ public class ClienteService {
     }
 
     public Cliente salvar(Cliente cliente) throws IllegalArgumentException {
-        Optional<Cliente> clienteExistentePorEmail = clienteRepositorio.findByEmail(cliente.getEmail());
-        if (clienteExistentePorEmail.isPresent()) {
-            throw new IllegalArgumentException("O email '" + cliente.getEmail() + "' já está em uso. Por favor, utilize um email diferente.");
-        }
 
-        Optional<Cliente> clienteExistentePorCpf = clienteRepositorio.findByCpf(cliente.getCpf());
-        if (clienteExistentePorCpf.isPresent()) {
-            throw new IllegalArgumentException("O CPF '" + cliente.getCpf() + "' já está cadastrado. Verifique o CPF e tente novamente.");
-        }
-
-        Optional<Cliente> clienteExistentePorTelefone = clienteRepositorio.findByTelefone(cliente.getTelefone());
-        if (clienteExistentePorTelefone.isPresent()) {
-            throw new IllegalArgumentException("O telefone '" + cliente.getTelefone() + "' já está em uso. Informe um telefone diferente.");
-        }
-
+        cliente.setNome(cliente.getNome());
+        cliente.setEmail(cliente.getEmail());
+        cliente.setCpf(cliente.getCpf());
+        cliente.setTelefone(cliente.getTelefone());
+        cliente.setDataNascimento(cliente.getDataNascimento());
+        
         if (cliente.getIdade() < 18) {
             throw new IllegalArgumentException("O cliente é menor de idade (idade: " + cliente.getIdade() + " anos). Somente maiores de 18 anos podem ser cadastrados.");
         }
@@ -70,7 +62,7 @@ public class ClienteService {
         }
     
         Cliente cliente = clienteExistente.get();
-        cliente.getEnderecos().add(novoEndereco);
+        Cliente.getEnderecos().add(novoEndereco);
         return clienteRepositorio.save(cliente);
     }
 
@@ -81,7 +73,7 @@ public class ClienteService {
         }
     
         Cliente cliente = clienteExistente.get();
-        Endereco endereco = cliente.getEnderecos().stream()
+        Endereco endereco = Cliente.getEnderecos().stream()
             .filter(e -> e.getId() == (enderecoId))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("Endereço com ID " + enderecoId + " não encontrado."));
@@ -103,12 +95,12 @@ public class ClienteService {
         }
     
         Cliente cliente = clienteExistente.get();
-        Endereco endereco = cliente.getEnderecos().stream()
+        Endereco endereco = Cliente.getEnderecos().stream()
             .filter(e -> e.getId() == (enderecoId))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException("Endereço com ID " + enderecoId + " não encontrado."));
     
-        cliente.getEnderecos().remove(endereco);
+        Cliente.getEnderecos().remove(endereco);
         return clienteRepositorio.save(cliente);
     }
     
