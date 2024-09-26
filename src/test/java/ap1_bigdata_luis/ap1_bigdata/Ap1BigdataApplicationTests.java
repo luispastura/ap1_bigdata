@@ -32,9 +32,9 @@ class Ap1GerenciamentoCliTests {
         MockitoAnnotations.openMocks(this);
 
         cliente = new Cliente();
-        cliente.setNome("Carlos Almeida");
+        cliente.setNome("Jose Almeida");
         cliente.setCpf("111.222.333-44");
-        cliente.setEmail("carlos.almeida@example.com");
+        cliente.setEmail("jose.almeida@example.com");
         cliente.setTelefone("(21) 99999-1234");
         cliente.setDataNascimento(LocalDate.of(1995, 8, 22));
     }
