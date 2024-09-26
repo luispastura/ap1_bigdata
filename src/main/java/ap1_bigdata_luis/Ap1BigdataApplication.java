@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Ap1GerenciamentoCli {
+public class Ap1BigdataApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Ap1GerenciamentoCli.class, args);
+		SpringApplication.run(Ap1BigdataApplication.class, args);
 	}
 
 }
+
+

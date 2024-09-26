@@ -1,8 +1,7 @@
 package ap1_bigdata_luis.controller;
 
-import org.springframework.http.HttpStatus;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +9,10 @@ import ap1_bigdata_luis.model.Cliente;
 import ap1_bigdata_luis.model.Endereco;
 import ap1_bigdata_luis.repository.ClienteRepository;
 import ap1_bigdata_luis.repository.EnderecoRepository;
-
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/clientes/{id}/enderecos")
