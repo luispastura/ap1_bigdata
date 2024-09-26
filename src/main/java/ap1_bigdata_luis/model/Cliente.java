@@ -13,10 +13,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 
 @Entity
 public class Cliente {
@@ -40,6 +42,8 @@ public class Cliente {
     private String cpf;
 
     @Past(message = "Data de nascimento deve ser válida")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Adulto(message = "Cliente deve ter mais de 18 anos")
     private LocalDate dataNascimento;
 
     @Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}", message = "O telefone deve seguir o padrão (XX) XXXXX-XXXX")

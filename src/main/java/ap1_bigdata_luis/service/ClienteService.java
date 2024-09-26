@@ -10,6 +10,8 @@ import ap1_bigdata_luis.repository.ClienteRepository;
 import java.util.List;
 import java.util.Optional;
 
+
+
 @Service
 public class ClienteService {
 
@@ -24,19 +26,27 @@ public class ClienteService {
         return clienteRepositorio.findById(id);
     }
 
-    public Cliente salvar(Cliente cliente) throws IllegalArgumentException {
+    public Cliente salvar(Cliente cliente) {
+        validarClienteUnico(cliente);
+        return clienteRepositorio.save(cliente);
+    }
 
-        cliente.setNome(cliente.getNome());
-        cliente.setEmail(cliente.getEmail());
-        cliente.setCpf(cliente.getCpf());
-        cliente.setTelefone(cliente.getTelefone());
-        cliente.setDataNascimento(cliente.getDataNascimento());
-        
-        if (cliente.getIdade() < 18) {
-            throw new IllegalArgumentException("O cliente é menor de idade (idade: " + cliente.getIdade() + " anos). Somente maiores de 18 anos podem ser cadastrados.");
+    private void validarClienteUnico(Cliente cliente) {
+        Optional<Cliente> clienteExistentePorCpf = clienteRepositorio.findByCpf(cliente.getCpf());
+        Optional<Cliente> clienteExistentePorEmail = clienteRepositorio.findByEmail(cliente.getEmail());
+        Optional<Cliente> clienteExistentePorTelefone = clienteRepositorio.findByTelefone(cliente.getTelefone());
+
+        if (clienteExistentePorCpf.isPresent()) {
+            throw new IllegalArgumentException("Já existe um cliente com este CPF.");
         }
 
-        return clienteRepositorio.save(cliente);
+        if (clienteExistentePorEmail.isPresent()) {
+            throw new IllegalArgumentException("Já existe um cliente com este e-mail.");
+        }
+
+        if (clienteExistentePorTelefone.isPresent()) {
+            throw new IllegalArgumentException("Já existe um cliente com este telefone.");
+        }
     }
 
     public Cliente atualizarCliente(int id, Cliente clienteAtualizado) {
