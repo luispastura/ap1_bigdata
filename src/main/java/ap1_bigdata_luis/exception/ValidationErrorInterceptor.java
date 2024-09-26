@@ -8,23 +8,30 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+
 @ControllerAdvice
 public class ValidationErrorInterceptor {
-    
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+
+    @ExceptionHandler({MethodArgumentNotValidException.class, IllegalArgumentException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ValidationMessageError validationErrorHandler(MethodArgumentNotValidException e) {
+    public ValidationMessageError handleExceptions(Exception ex) {
         ValidationMessageError response = new ValidationMessageError();
 
-        for(FieldError item : e.getFieldErrors()) {
+        if (ex instanceof MethodArgumentNotValidException) {
+            MethodArgumentNotValidException validationException = (MethodArgumentNotValidException) ex;
+            for (FieldError item : validationException.getFieldErrors()) {
+                ValidationError error = new ValidationError();
+                error.setField(item.getField());
+                error.setMessage(item.getDefaultMessage());
+                response.getErrors().add(error);
+            }
+        } else if (ex instanceof IllegalArgumentException) {
             ValidationError error = new ValidationError();
-            error.setField(item.getField());
-            error.setMessage(item.getDefaultMessage());
+            error.setMessage(ex.getMessage());
             response.getErrors().add(error);
         }
 
         return response;
     }
-    
 }
