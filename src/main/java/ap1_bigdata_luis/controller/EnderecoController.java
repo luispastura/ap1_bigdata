@@ -10,7 +10,6 @@ import ap1_bigdata_luis.model.Cliente;
 import ap1_bigdata_luis.model.Endereco;
 import ap1_bigdata_luis.repository.ClienteRepository;
 import ap1_bigdata_luis.repository.EnderecoRepository;
-import ap1_bigdata_luis.service.EnderecoService;
 
 import jakarta.validation.Valid;
 import java.util.List;
