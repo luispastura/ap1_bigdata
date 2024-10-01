@@ -70,4 +70,3 @@ public class EnderecoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
-

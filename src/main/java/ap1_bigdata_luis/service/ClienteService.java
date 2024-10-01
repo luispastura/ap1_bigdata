@@ -10,8 +10,6 @@ import ap1_bigdata_luis.repository.ClienteRepository;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @Service
 public class ClienteService {
 
