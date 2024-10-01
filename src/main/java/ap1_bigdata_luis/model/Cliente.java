@@ -41,7 +41,7 @@ public class Cliente {
 
     @Past(message = "Data de nascimento deve ser válida")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Adulto(message = "Cliente deve ter mais de 18 anos")
+    @MaiordeIdade(message = "Cliente deve ter mais de 18 anos")
     private LocalDate dataNascimento;
 
     @Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}", message = "O telefone deve seguir o padrão (XX) XXXXX-XXXX")

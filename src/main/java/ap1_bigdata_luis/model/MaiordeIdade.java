@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = AdultoValidator.class)
-public @interface Adulto {
+@Constraint(validatedBy = ValidatorMaiordeIdade.class)
+public @interface MaiordeIdade {
     String message() default "O cliente deve ter mais de 18 anos";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
