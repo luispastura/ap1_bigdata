@@ -54,6 +54,37 @@ public class EnderecoController {
         return new ResponseEntity<>(endereco, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{idEndereco}")
+    public ResponseEntity<Endereco> atualizar(@PathVariable("id") int idCliente, 
+                                           @PathVariable("idEndereco") int idEndereco, 
+                                           @Valid @RequestBody Endereco enderecoAtualizado) {
+    Optional<Cliente> optCliente = this.clienteRepositorio.findById(idCliente);
+    Optional<Endereco> optEndereco = this.enderecoRepositorio.findById(idEndereco);
+
+    // Verifica se o cliente existe
+    if (optCliente.isPresent() == false) 
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    // Verifica se o endereço existe
+    if (optEndereco.isPresent() == false) 
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    
+    // Atualiza os dados do endereço
+    Endereco endereco = optEndereco.get();
+    endereco.setRua(enderecoAtualizado.getRua());
+    endereco.setNumero(enderecoAtualizado.getNumero());
+    endereco.setBairro(enderecoAtualizado.getBairro());
+    endereco.setCidade(enderecoAtualizado.getCidade());
+    endereco.setEstado(enderecoAtualizado.getEstado());
+    endereco.setCep(enderecoAtualizado.getCep());
+
+    // Salva o endereço atualizado no repositório
+    this.enderecoRepositorio.save(endereco);
+
+    return new ResponseEntity<>(endereco, HttpStatus.OK);
+}
+
+
     @DeleteMapping("{idEndereco}")
     public ResponseEntity<Void> delete(@PathVariable("id") int idCliente, @PathVariable("idEndereco") int idEndereco) {
         Optional<Cliente> optCliente = this.clienteRepositorio.findById(idCliente);
