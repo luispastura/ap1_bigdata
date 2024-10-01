@@ -61,15 +61,12 @@ public class EnderecoController {
     Optional<Cliente> optCliente = this.clienteRepositorio.findById(idCliente);
     Optional<Endereco> optEndereco = this.enderecoRepositorio.findById(idEndereco);
 
-    // Verifica se o cliente existe
     if (optCliente.isPresent() == false) 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-    // Verifica se o endereço existe
     if (optEndereco.isPresent() == false) 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     
-    // Atualiza os dados do endereço
     Endereco endereco = optEndereco.get();
     endereco.setRua(enderecoAtualizado.getRua());
     endereco.setNumero(enderecoAtualizado.getNumero());
@@ -78,7 +75,6 @@ public class EnderecoController {
     endereco.setEstado(enderecoAtualizado.getEstado());
     endereco.setCep(enderecoAtualizado.getCep());
 
-    // Salva o endereço atualizado no repositório
     this.enderecoRepositorio.save(endereco);
 
     return new ResponseEntity<>(endereco, HttpStatus.OK);
